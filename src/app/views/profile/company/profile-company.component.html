@@ -1,0 +1,64 @@
+<form [formGroup]="companyForm">
+
+  <label>
+    Nom comercial
+    <input type="text" formControlName="name">
+  </label>
+
+  <label>
+    Raó social
+    <input type="text" formControlName="businessName">
+  </label>
+
+  <label>
+    CIF
+    <input type="text" formControlName="cif">
+  </label>
+
+  <label>
+    Adreça
+    <input type="text" formControlName="address">
+  </label>
+
+  <label>
+    Província
+    <select formControlName="province">
+      <option value="1">Barcelona</option>
+    </select>
+  </label>
+
+  <label>
+    Municipi
+    <select formControlName="city">
+      <option value="1">Artés</option>
+    </select>
+  </label>
+
+  <label>
+    URL
+    <input type="text" formControlName="url">
+  </label>
+
+  <div formGroupName="contact">
+
+    <h2>Dades de contacte</h2>
+
+    <label>
+      Nom i cognoms
+      <input type="text" formControlName="name">
+    </label>
+
+    <label>
+      Telèfon
+      <input type="text" formControlName="phone">
+    </label>
+
+    <label>
+      Correu electrònic
+      <input type="email" formControlName="email">
+    </label>
+
+  </div>  <!--contact-->
+
+  <button [disabled]="companyForm.invalid">Desar</button>
+</form>

@@ -1,0 +1,51 @@
+<form [formGroup]="offerForm">
+
+  <div formGroupName="offer">
+    <h2>Oferta</h2>
+
+    <label>
+      Empresa
+      <input type="text" formControlName="company">
+    </label>
+
+    <label>
+      Lloc
+      <input type="text" formControlName="position">
+    </label>
+
+    <label>
+      Descripció
+    </label>
+  </div>
+
+  <div formGroupName="place">
+    <h2>Municipi</h2>
+
+    <label>
+      Província
+      <select formControlName="province">
+        <option value="1">Barcelona</option>
+      </select>
+    </label>
+
+    <label>
+      Municipi
+      <select formControlName="city">
+        <option value="1">Artés</option>
+      </select>
+    </label>
+  </div>
+
+  <div formGroupName="target">
+    <h2>Destinatari</h2>
+
+    <label>
+      Família professional
+      <input type="text" formControlName="family">
+    </label>
+
+    <label>
+      Títols
+    </label>
+  </div>
+</form>

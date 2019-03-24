@@ -1,0 +1,26 @@
+<h2>Formació acadèmica</h2>
+<table>
+  <thead>
+  <th scope="col">Nivell</th>
+  <th scope="col">Títol</th>
+  <th scope="col">Centre</th>
+  <th scope="col">Data</th>
+  <th scope="col">Certificat</th>
+  <th scope="col">Accions</th>
+  </thead>
+  <tbody>
+  <tr *ngFor="let entity of user.studies.entities">
+    <td>{{entity.level}}</td>
+    <td>{{entity.title}}</td>
+    <td>{{entity.institution}}</td>
+    <td>{{entity.date}}</td>
+    <td>{{entity.certificate}}</td>
+    <td>
+      <button (click)="removeStudy()">Eliminar</button>
+      <a [routerLink]="[{ outlets: { study: ['study'] } }]">Editar</a>
+    </td>
+  </tr>
+  </tbody>
+</table>
+<a [routerLink]="[{ outlets: { study: ['study'] } }]">Nova</a>
+<router-outlet name="study"></router-outlet>

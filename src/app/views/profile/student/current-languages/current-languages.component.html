@@ -1,0 +1,22 @@
+<h2>Idiomes</h2>
+<table>
+  <thead>
+  <th scope="col">Nom</th>
+  <th scope="col">Nivell</th>
+  <th scope="col">Data</th>
+  <th scope="col">Accions</th>
+  </thead>
+  <tbody>
+  <tr *ngFor="let entity of user.languages.entities">
+    <td>{{entity.name}}</td>
+    <td>{{entity.level}}</td>
+    <td>{{entity.date}}</td>
+    <td>
+      <button (click)="removeLanguage()">Eliminar</button>
+      <a [routerLink]="[{ outlets: { language: ['language'] } }]">Editar</a>
+    </td>
+  </tr>
+  </tbody>
+</table>
+<a [routerLink]="[{ outlets: { language: ['language'] } }]">Nou</a>
+<router-outlet name="language"></router-outlet>

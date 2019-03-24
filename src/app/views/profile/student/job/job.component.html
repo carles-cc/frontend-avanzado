@@ -1,0 +1,29 @@
+<form [formGroup]="jobForm">
+
+  <div>
+
+    <label>
+      Empresa
+      <input type="text" formControlName="company" required>
+    </label>
+    <label>
+      Data inici
+      <input type="date" formControlName="startDate" required>
+    </label>
+    <label>
+      Data final
+      <input type="date" formControlName="endDate" required>
+    </label>
+    <label>
+      Posició
+      <input type="text" formControlName="position" required>
+    </label>
+    <label>
+      Tasques
+      <angular-editor id="competences" formControlName="tasks"></angular-editor>
+    </label>
+
+  </div>
+
+  <button [disabled]="jobForm.invalid" (click)="save()">Desar</button>
+</form>

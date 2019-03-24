@@ -1,0 +1,20 @@
+<h2>Borsa de feines</h2>
+<table>
+  <thead>
+    <th scope="col">Lloc</th>
+    <th scope="col">Empresa</th>
+    <th scope="col">Família professional</th>
+    <th scope="col">Data</th>
+    <th scope="col">Província</th>
+  </thead>
+  <tbody>
+  <tr [routerLink]="[{ outlets: { detail: ['detail'] } }]" *ngFor="let offer of offers">
+    <td>{{offer.position}}</td>
+    <td>{{offer.company}}</td>
+    <td>{{offer.family}}</td>
+    <td>{{offer.date}}</td>
+    <td>{{offer.province}}</td>
+  </tr>
+  </tbody>
+</table>
+<router-outlet name="detail"></router-outlet>

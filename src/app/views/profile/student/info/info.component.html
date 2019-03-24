@@ -1,0 +1,86 @@
+<div>
+  <div>
+    <!--<img src="{{user.image}}" alt="">-->
+    <img src="data:image/png;base64,{{user.avatar_hash}}" alt="">
+    <p>{{user.name}} {{user.surname}}</p>
+  </div>
+  <div>
+    <div>
+      <div>Email</div>
+      <div>{{user.email}}</div>
+    </div>
+    <div>
+      <div>Data de naixement</div>
+      <div>{{user.birthDate}}</div>
+    </div>
+    <div>
+      <div>Telèfon</div>
+      <div>{{user.phone}}</div>
+    </div>
+    <div>
+      <div>NIF/NIE</div>
+      <div>{{user.documentNumber}}</div>
+    </div>
+    <div>
+      <div>Permisos de conduir</div>
+      <div>{{user.other.driverLicenses}}</div>
+    </div>
+  </div>
+  <div>
+    <div>Sobre mi...</div>
+    <div>{{user.other.about}}</div>
+  </div>
+  <div>
+    <div>Altres competències</div>
+    <div>{{user.other.competences}}</div>
+  </div>
+  <h2>Formació acadèmica</h2>
+  <table>
+    <thead>
+    <th scope="col">Nivell</th>
+    <th scope="col">Títol</th>
+    <th scope="col">Centre</th>
+    <th scope="col">Data</th>
+    <th scope="col">Certificat</th>
+    </thead>
+    <tbody>
+    <tr *ngFor="let entity of user.studies.entities">
+      <td>{{entity.level}}</td>
+      <td>{{entity.title}}</td>
+      <td>{{entity.institution}}</td>
+      <td>{{entity.date}}</td>
+      <td>{{entity.certificate}}</td>
+    </tr>
+    </tbody>
+  </table>
+  <h2>Experiència laboral</h2>
+  <table>
+    <thead>
+    <th scope="col">Empresa</th>
+    <th scope="col">Lloc</th>
+    <th scope="col">Dates</th>
+    </thead>
+    <tbody>
+    <tr *ngFor="let offer of user.offers.entities">
+      <td>{{offer.company}}</td>
+      <td>{{offer.position}}</td>
+      <td>{{offer.date}}</td>
+    </tr>
+    </tbody>
+  </table>
+  <h2>Idiomes</h2>
+  <table>
+    <thead>
+    <th scope="col">Nivell</th>
+    <th scope="col">Idioma</th>
+    <th scope="col">Data</th>
+    </thead>
+    <tbody>
+    <tr *ngFor="let language of user.languages.entities">
+      <td>{{language.level}}</td>
+      <td>{{language.name}}</td>
+      <td>{{language.date}}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>

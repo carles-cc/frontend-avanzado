@@ -1,0 +1,94 @@
+<form [formGroup]="studentPersonalDataForm">
+  <div formGroupName="personalData">
+    <img src="data:image/png;base64,{{studentPersonalDataForm.get('personalData').get('avatar_hash').value}}" alt="">
+    email/nickname
+  </div>
+
+  <div formGroupName="personalData">
+
+    <label>
+      Nom
+      <input type="text" formControlName="name" required>
+    </label>
+
+    <label>
+      Cognoms
+      <input type="text" formControlName="surname" required>
+    </label>
+
+    <label>
+      D. Naixement
+      <input type="date" formControlName="birthDate" required>
+    </label>
+
+    <label>
+      Telèfon
+      <input type="text" formControlName="phone" required>
+    </label>
+
+    <label>
+      Telèfon 1
+      <input type="text" formControlName="otherPhone">
+    </label>
+
+    <label>
+      NIF/NIE
+      <select formControlName="documentType">
+        <option value="NIF">NIF</option>
+        <option value="NIE">NIE</option>
+        <option value="passport">Passaport</option>
+        <option value="other">Un altre</option>
+      </select>
+    </label>
+
+    <label>
+      Número
+      <input type="text" formControlName="documentNumber">
+    </label>
+
+  </div>  <!--personalData-->
+
+  <div formGroupName="address">
+
+    <label>
+      Adreça
+      <input type="text" formControlName="address">
+    </label>
+
+    <label>
+      Província
+      <select formControlName="province">
+        <option value="1">Barcelona</option>
+      </select>
+    </label>
+
+    <label>
+      Municipi
+      <select formControlName="city">
+        <option value="1">Artés</option>
+      </select>
+    </label>
+
+  </div> <!--address-->
+
+  <div formGroupName="other">
+
+    <label>
+      Permisos de conduir
+      <input type="text" formControlName="driverLicenses">
+    </label>
+
+    <label>
+      Sobre mi
+      <angular-editor id="about" formControlName="about"></angular-editor>
+    </label>
+
+    <label>
+      Altres competències
+      <angular-editor id="competences" formControlName="competences"></angular-editor>
+    </label>
+
+  </div> <!--other-->
+
+  <button [disabled]="studentPersonalDataForm.invalid">Desar</button>
+</form>

@@ -1,0 +1,37 @@
+<form [formGroup]="languageForm">
+
+  <div>
+
+    <label>
+      Idioma
+      <select formControlName="language" required>
+        <option value="english">Anglès</option>
+        <option value="french">Francès</option>
+        <option value="german">Alemany</option>
+        <option value="russian">Rus</option>
+        <option value="other">Altres</option>
+      </select>
+    </label>
+    <label>
+      <input *ngIf="languageForm.controls['language'].value === 'other'" type="text" formControlName="other">
+    </label>
+    <label>
+      Nivell
+      <select formControlName="level">
+        <option value="A1">A1</option>
+        <option value="A2">A2</option>
+        <option value="B1">B1</option>
+        <option value="B2">B2</option>
+        <option value="C1">C1</option>
+        <option value="C2">C2</option>
+      </select>
+    </label>
+    <label>
+      Data d'obtenció del títol
+      <input type="date" formControlName="date" required>
+    </label>
+
+  </div>
+
+  <button (click)="save()">Desar</button>
+</form>

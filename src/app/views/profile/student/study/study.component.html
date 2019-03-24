@@ -1,0 +1,86 @@
+<form [formGroup]="studyForm">
+
+  <div>
+    <label>
+      Tipus
+      <select formControlName="type">
+        <option value="university">Títol universitari</option>
+        <option value="cycle">Cicle formatiu</option>
+        <option value="other">Un altre</option>
+      </select>
+    </label>
+
+    <div formGroupName="university">
+      <h2>Títol universitari</h2>
+      <label>
+        Nom del centre
+        <input type="text" formControlName="center" required>
+      </label>
+      <label>
+        Títol
+        <input type="text" formControlName="title" required>
+      </label>
+      <label>
+        Data
+        <input type="date" formControlName="date" required>
+      </label>
+      <label>
+        Formació bilingüe
+        <input type="checkbox" formControlName="bilingual">
+      </label>
+      <label>
+        Certificat
+        <input type="file" formControlName="certificate">
+      </label>
+
+    </div>
+
+  </div> <!--university-->
+
+  <div formGroupName="cycle">
+    <h2>Cicle formatiu</h2>
+    <label>
+      Centre educatiu
+      <select formControlName="center">
+        <option value="uoc">UOC</option>
+      </select>
+    </label>
+    <label>
+      Família professional
+      <select formControlName="family">
+        <option value="...">...</option>
+      </select>
+    </label>
+    <label>
+      Grau
+      <select formControlName="degree">
+        <option value="...">...</option>
+      </select>
+    </label>
+    <label>
+      Cicle
+      <select formControlName="cycle">
+        <option value="...">...</option>
+      </select>
+    </label>
+    <label>
+      Data
+      <input type="date" formControlName="date" required>
+    </label>
+    <label>
+      Dual
+      <input type="checkbox" formControlName="dual">
+    </label>
+    <label>
+      Formació bilingüe
+      <input type="checkbox" formControlName="bilingual">
+    </label>
+    <label>
+      Certificat
+      <input type="file" formControlName="certificate">
+    </label>
+
+  </div>
+
+  <button (click)="save()">Desar</button>
+</form>

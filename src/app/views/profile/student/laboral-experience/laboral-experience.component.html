@@ -1,0 +1,22 @@
+<h2>Experiència laboral</h2>
+<table>
+  <thead>
+  <th scope="col">Empresa</th>
+  <th scope="col">Data</th>
+  <th scope="col">Posició</th>
+  <th scope="col">Accions</th>
+  </thead>
+  <tbody>
+  <tr *ngFor="let entity of user.experiences.entities">
+    <td>{{entity.company}}</td>
+    <td>{{entity.date}}</td>
+    <td>{{entity.position}}</td>
+    <td>
+      <button (click)="removeExperience()">Eliminar</button>
+      <a [routerLink]="[{ outlets: { job: ['job'] } }]">Editar</a>
+    </td>
+  </tr>
+  </tbody>
+</table>
+<a [routerLink]="[{ outlets: { job: ['job'] } }]">Nova</a>
+<router-outlet name="job"></router-outlet>
