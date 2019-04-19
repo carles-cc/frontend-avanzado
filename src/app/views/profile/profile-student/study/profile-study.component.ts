@@ -8,6 +8,8 @@ import {
   CollegeStudy
 } from 'src/app/shared/models/study.model';
 import { MockData } from 'src/app/shared/mock-data';
+import {Store} from "@ngrx/store";
+import {UserState} from "../../../../shared/states/user/user.state";
 
 @Component({
   selector: 'app-profile-study',
@@ -22,7 +24,8 @@ export class ProfileStudyComponent {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private profileService: ProfileService
+    private profileService: ProfileService,
+    private store: Store<UserState>
   ) {
     this.route.params.subscribe(params => {
       const user = this.profileService.user;

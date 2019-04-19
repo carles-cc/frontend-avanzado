@@ -7,6 +7,10 @@ import { rootRouterConfig } from './app-routing';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { FakeBackendService } from './shared/inmemory-db/fake-backend.service';
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import {EffectsModule} from '@ngrx/effects';
+import {routerReducer, StoreRouterConnectingModule} from "@ngrx/router-store";
 
 @NgModule({
   imports: [
@@ -16,6 +20,14 @@ import { FakeBackendService } from './shared/inmemory-db/fake-backend.service';
     HttpClientModule,
     HttpClientInMemoryWebApiModule.forRoot(FakeBackendService, {
       dataEncapsulation: false
+    }),
+    StoreModule.forRoot({router: routerReducer}),
+    EffectsModule.forRoot([]),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25 // Retains last 25 states
+    }),
+    StoreRouterConnectingModule.forRoot({
+      stateKey: 'router'
     })
   ],
   declarations: [AppComponent],

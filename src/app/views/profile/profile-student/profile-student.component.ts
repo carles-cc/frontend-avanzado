@@ -1,6 +1,11 @@
 import { Component } from '@angular/core';
 import { ProfileService } from '../../../shared/services/profile.service';
 import { User } from 'src/app/shared/models/user.model';
+import {Store} from '@ngrx/store';
+import {UserState} from '../../../shared/states/user/user.state';
+import {selectedUser, studiesSelector} from '../../../shared/states/user/selectors/user.selectors';
+import {tap} from 'rxjs/operators';
+import {DeleteStudy, SaveUser} from "../../../shared/states/user/actions/user.actions";
 
 @Component({
   selector: 'app-profile-student',
@@ -9,28 +14,22 @@ import { User } from 'src/app/shared/models/user.model';
 })
 export class ProfileStudentComponent {
   user: User;
-  constructor(private profileService: ProfileService) {
-    this.user = this.profileService.user;
+  constructor(
+    private profileService: ProfileService,
+    private store: Store<UserState>
+  ) {
+    // @ts-ignore
+    this.store.select(selectedUser)
+      .subscribe(result => this.user = result);
   }
 
   deleteStudy(studyID: number) {
-    const studies = this.user.studies;
-    const index = studies.findIndex(study => study.uid === studyID);
-    if (index === -1) {
-      alert('Error: Study not found');
-      return;
-    }
-    studies.splice(index, 1);
-    this.profileService.updateProfile(this.user);
+    this.user.studies = this.user.studies.filter(study => study.uid !== studyID);
+    this.store.dispatch(new SaveUser(this.user));
   }
+
   deleteLanguage(languageID: any) {
-    const languages = this.user.languages;
-    const index = languages.findIndex(language => language.uid === languageID);
-    if (index === -1) {
-      alert('Error: Language not found');
-      return;
-    }
-    languages.splice(index, 1);
-    this.profileService.updateProfile(this.user);
+    this.user.languages = this.user.languages.filter(language => language.uid !== languageID);
+    this.store.dispatch(new SaveUser(this.user));
   }
 }

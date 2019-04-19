@@ -52,6 +52,8 @@ export interface User {
 export function createNewUser(user?: User): User {
   return {
     ...user,
+    password: '',
+    username: '',
     name: '',
     surname: '',
     id: -1,

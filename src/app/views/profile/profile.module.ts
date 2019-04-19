@@ -17,8 +17,11 @@ import { ProfileAccountComponent } from './profile-student/account/profile-accou
     VocationalFormComponent,
     UniversityDegreeComponent,
     ProfileLanguageComponent,
-    ProfileAccountComponent
+    ProfileAccountComponent,
   ],
-  imports: [SharedModule, ProfileRoutingModule]
+  imports: [
+    SharedModule,
+    ProfileRoutingModule,
+  ]
 })
 export class ProfileModule {}

@@ -13,9 +13,10 @@ export class SigninService {
   async login({ email, password }): Promise<any> {
     const users = await this.getUsers();
     // Mock response from backend:
-    console.log(users);
-    return users.find(
+    const result =  users.find(
       (user: any) => user.email === email && user.password === password
     );
+    console.log(email, password);
+    return result;
   }
 }
