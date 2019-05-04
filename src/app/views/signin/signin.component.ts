@@ -1,12 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { ProfileService } from 'src/app/shared/services/profile.service';
-import {SigninService} from '../../shared/services/signin.service';
-import {Store} from '@ngrx/store';
-import {UserState} from '../../shared/states/user/user.state';
-import {GetUser} from '../../shared/states/user/actions/user.actions';
-import {errorLogin, logged, loading} from '../../shared/states/user/selectors/user.selectors';
+import { FormGroup, Validators, FormControl } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { AppStore } from 'src/app/shared/states/store.interface';
+import * as AuthActions from 'src/app/shared/states/auth/actions/auth.actions';
 
 @Component({
   selector: 'app-signin',
@@ -16,33 +12,19 @@ import {errorLogin, logged, loading} from '../../shared/states/user/selectors/us
 export class SigninComponent implements OnInit {
   loginForm: FormGroup;
   submitted = false;
-  errorLogin$ = false;
-  loading$ = false;
-
-  constructor(
-    private signinService: SigninService,
-    private profileService: ProfileService,
-    private formBuilder: FormBuilder,
-    private router: Router,
-    private store: Store<UserState>
-  ) {
-    // @ts-ignore
-    this.errorLogin$ = this.store.select(errorLogin);
-    // @ts-ignore
-    this.loading$ = this.store.select(loading);
-    // @ts-ignore
-    this.store.select(logged)
-      .subscribe(next => next && this.router.navigate(['admin/dashboard']));
-  }
+  errorLogin = false;
+  constructor(private store$: Store<AppStore>) {}
 
   ngOnInit() {
-    this.loginForm = this.formBuilder.group({
-      email: ['', [Validators.email, Validators.required]],
-      password: ['', Validators.required]
+    this.loginForm = new FormGroup({
+      email: new FormControl('', [Validators.email, Validators.required]),
+      password: new FormControl('', Validators.required),
+      rememberMe: new FormControl(false),
     });
   }
 
   onSubmit() {
-    this.store.dispatch(new GetUser({ ...this.loginForm.value }));
+    this.submitted = true;
+    this.store$.dispatch(new AuthActions.Identification({...this.loginForm.value}));
   }
 }

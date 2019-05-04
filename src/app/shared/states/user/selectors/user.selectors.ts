@@ -1,9 +1,26 @@
-import {AppState} from '../../store.interface';
-import {UserState} from '../user.state';
+import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { User } from 'src/app/shared/models/user.model';
 
-export const selectedUser = (state: AppState) => state.user.user;
-export const errorLogin = (state: AppState) => state.user.errorLogin;
-export const loading = (state: AppState) => state.user.loading;
-export const logged = (state: AppState) => state.user.logged;
-export const updated = (state: AppState) => state.user.updated;
-export const studiesSelector = (state: AppState) => state.user.user.studies;
+export const getProfile = createFeatureSelector<User>('user');
+
+export const getLanguages = createSelector(
+  getProfile,
+  ({ languages }) => languages
+);
+export function getLanguageByID(id: number) {
+  return createSelector(
+    getLanguages,
+    languages => languages.find(language => language.uid === id)
+  );
+}
+
+export const getStudies = createSelector(
+  getProfile,
+  ({ studies }) => studies
+);
+export function getStudyByID(id: number) {
+  return createSelector(
+    getStudies,
+    studies => studies.find(study => study.uid === id)
+  );
+}

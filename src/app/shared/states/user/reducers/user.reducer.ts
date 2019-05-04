@@ -1,57 +1,85 @@
-import {initialUserState, UserState} from '../user.state';
-import * as UserActions from '../actions/user.actions';
-import {ActionTypes} from '../actions/user.actions';
-import {createNewUser} from '../../../models/user.model';
+import * as UserActions from '../actions';
 
-export type Action = UserActions.All;
+import { AppSettings } from '../../../app.settings';
+import { User } from 'src/app/shared/models/user.model';
 
-export function userReducer(state: UserState = initialUserState, action: UserActions.All): UserState {
+export interface UserState extends User {
+  hasFailed: boolean;
+}
+
+export const initialState: UserState = {
+  password: '', // Only for mock
+  id: -1,
+  username: '',
+  name: '',
+  surname: '',
+  birthdate: '',
+  phone: '',
+  phone2: '',
+  email: '',
+  documentNumber: '',
+  documentType: {
+    uid: -1,
+    name: ''
+  },
+  aboutMe: '',
+  otherCompetences: '',
+  license: '',
+  avatar_hash: '',
+  address: {
+    street: '',
+    province: {
+      uid: -1,
+      name: ''
+    },
+    municipe: {
+      uid: -1,
+      name: ''
+    }
+  },
+  roles: [],
+  studies: [],
+  experiencies: [],
+  languages: [],
+  offers: [],
+  hasFailed: false
+};
+
+export function reducer(
+  state = initialState,
+  action: UserActions.All
+): UserState {
   switch (action.type) {
-    case ActionTypes.GET_USER:
+    case UserActions.LOAD_USER: {
+      return {
+        ...state
+      };
+    }
+    case UserActions.LOAD_USER_SUCCESS: {
       return {
         ...state,
-        loginInfo: action.payload,
-        loading: true,
+        ...action.payload,
+        hasFailed: false
       };
-
-    case ActionTypes.GET_USERS:
+    }
+    case UserActions.LOAD_USER_FAILED: {
       return {
         ...state,
-        loading: true,
+        hasFailed: true
       };
-
-    case ActionTypes.GET_USER_SUCCESS:
+    }
+    case UserActions.UPDATE_USER_SUCCESS: {
       return {
         ...state,
-        loading: false,
-        logged: true,
-        errorLogin: false,
-        user: action.payload,
+        ...action.payload
       };
-
-    case ActionTypes.GET_USER_ERROR:
+    }
+    case UserActions.LOGOUT_USER: {
       return {
         ...state,
-        loading: false,
-        logged: false,
-        errorLogin: true,
-        user: createNewUser()
+        ...initialState
       };
-
-    case ActionTypes.SAVE_USER:
-      return {
-        ...state,
-        user: Object.assign({}, state.user, action.payload),
-        updated: false
-      };
-
-    case ActionTypes.SAVE_USER_SUCCESS:
-      return {
-        ...state,
-        updated: true
-      };
-
-    default:
-      return state;
+    }
   }
+  return state;
 }

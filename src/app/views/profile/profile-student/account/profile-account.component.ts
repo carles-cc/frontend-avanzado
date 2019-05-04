@@ -1,4 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  OnChanges,
+  Output,
+  EventEmitter
+} from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ProfileService } from '../../../../shared/services/profile.service';
@@ -11,49 +18,33 @@ import {
   Province
 } from 'src/app/shared/models/user.model';
 import { documentNumberValidator } from 'src/app/shared/directives/document-number-validator.directive';
-import {Store} from '@ngrx/store';
-import {UserState} from '../../../../shared/states/user/user.state';
-import {selectedUser, updated} from '../../../../shared/states/user/selectors/user.selectors';
-import {SaveUser} from '../../../../shared/states/user/actions/user.actions';
-import {Observable} from 'rxjs';
+import { AppStore } from 'src/app/shared/states/store.interface';
+import { Store } from '@ngrx/store';
+import { getProfile } from 'src/app/shared/states/user';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-profile-account',
   templateUrl: './profile-account.component.html',
   styleUrls: ['./profile-account.component.scss']
 })
-export class ProfileAccountComponent implements OnInit {
+export class ProfileAccountComponent implements OnInit, OnChanges {
+  @Input() user: User;
+  // tslint:disable-next-line:no-output-on-prefix
+  @Output() onSave: EventEmitter<User> = new EventEmitter<User>();
   rForm: FormGroup;
-  user: User;
-  updating$: Observable<boolean>;
-  dirty = false;
   documentsType: DocumentType[];
   municipes: Municipe[];
   provinces: Province[];
 
-  constructor(
-    private router: Router,
-    private profileService: ProfileService,
-    private store: Store<UserState>
-  ) {
-    // @ts-ignore
-    this.store.select(selectedUser)
-      .subscribe(result => {
-        this.user = result;
-      });
-
-    // @ts-ignore
-    this.store.select(updated)
-      .subscribe(result => result && this.dirty && this.router.navigate(['admin/profile'])
-    );
-  }
-
+  constructor() {}
   ngOnInit() {
     this.loadSelectProperties();
     this.loadFormInstance();
-    this.dirty = false;
   }
-
+  ngOnChanges() {
+    this.loadFormInstance();
+  }
   public loadSelectProperties(): void {
     this.documentsType = MockData.DOCUMENTS_TYPE;
     this.municipes = MockData.MUNICIPES;
@@ -94,17 +85,15 @@ export class ProfileAccountComponent implements OnInit {
         documentNumber: new FormControl(this.user.documentNumber, [
           Validators.required
         ]),
-        address: new FormGroup({
-          street: new FormControl(this.user.address.street, [
-            Validators.required
-          ]),
-          municipe: new FormControl(this.user.address.municipe, [
-            Validators.required
-          ]),
-          province: new FormControl(this.user.address.province, [
-            Validators.required
-          ])
-        }),
+        street: new FormControl(this.user.address.street, [
+          Validators.required
+        ]),
+        municipe: new FormControl(this.user.address.municipe, [
+          Validators.required
+        ]),
+        province: new FormControl(this.user.address.province, [
+          Validators.required
+        ]),
         aboutMe: new FormControl(this.user.aboutMe),
         otherCompetences: new FormControl(this.user.aboutMe),
         license: new FormControl(this.user.license)
@@ -114,11 +103,17 @@ export class ProfileAccountComponent implements OnInit {
   }
 
   public save() {
-    this.dirty = true;
-    const user: User = {...this.user, ...this.rForm.value};
-    this.store.dispatch(new SaveUser(user));
+    const { street = '', municipe = '', province = '', ...rest } = {
+      ...this.rForm.value
+    };
+    const address = {
+      street,
+      municipe,
+      province
+    };
+    const user = { ...this.user, address, ...rest };
+    this.onSave.emit(user);
   }
-
   compareByUID(option1, option2) {
     return option1.uid === (option2 && option2.uid);
   }

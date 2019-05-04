@@ -1,49 +1,57 @@
-import {UserState} from '../user.state';
-import {User} from '../../../models/user.model';
-import {Action} from '@ngrx/store';
-import {LoginInfo} from '../../../models/login.model';
+import { Action } from '@ngrx/store';
+import { User } from 'src/app/shared/models/user.model';
 
-export enum ActionTypes {
-  GET_USER = '[User] GET_USER',
-  GET_USERS = '[User] GET_USERS',
-  GET_USER_SUCCESS = '[User] GET_USER_SUCCESS',
-  GET_USER_ERROR = '[User] GET_USER_ERROR',
-  SAVE_USER = '[User} SAVE_USER',
-  SAVE_USER_SUCCESS = '[User} SAVE_USER_SUCCESS',
-  DELETE_STUDY = '[User] DELETE_STUDY',
+export const LOAD_USER = '[User] Load User Information';
+export class LoadUser implements Action {
+  readonly type = LOAD_USER;
+
+  constructor() {}
 }
 
-export class GetUsers implements Action {
-  readonly type = ActionTypes.GET_USERS;
-}
+export const LOAD_USER_SUCCESS = '[User] Load success';
+export class LoadUserSuccess implements Action {
+  readonly type = LOAD_USER_SUCCESS;
 
-export class GetUser implements Action {
-  readonly type = ActionTypes.GET_USER;
-  constructor(public payload: LoginInfo) {}
-}
-
-export class GetUserSuccess implements Action {
-  readonly type = ActionTypes.GET_USER_SUCCESS;
   constructor(public payload: User) {}
 }
+export const LOAD_USER_FAILED = '[User] Load failed';
+export class LoadUserFailed implements Action {
+  readonly type = LOAD_USER_FAILED;
 
-export class GetUserError implements Action {
-  readonly type = ActionTypes.GET_USER_ERROR;
-  public payload = false;
+  constructor(public payload: string) {}
 }
 
-export class SaveUser implements Action {
-  readonly type = ActionTypes.SAVE_USER;
+export const UPDATE_USER = '[User] Update User Information';
+export class UpdateUser implements Action {
+  readonly type = UPDATE_USER;
+
   constructor(public payload: User) {}
 }
+export const UPDATE_USER_SUCCESS = '[User] Update User Information SUCCESS';
+export class UpdateUserSuccess implements Action {
+  readonly type = UPDATE_USER_SUCCESS;
 
-export class SaveUserSuccess implements Action {
-  readonly type = ActionTypes.SAVE_USER_SUCCESS;
-}
-
-export class DeleteStudy implements Action {
-  readonly type = ActionTypes.DELETE_STUDY;
   constructor(public payload: User) {}
 }
+export const UPDATE_USER_FAILED = '[User] Update User Information FAILED';
+export class UpdateUserFailed implements Action {
+  readonly type = UPDATE_USER_FAILED;
 
-export type All = GetUser | GetUsers | GetUserSuccess | GetUserError | SaveUser | SaveUserSuccess | DeleteStudy;
+  constructor(public payload: string) {}
+}
+
+export const LOGOUT_USER = '[User] Logout';
+export class Logout implements Action {
+  readonly type = LOGOUT_USER;
+
+  constructor() {}
+}
+
+export type All =
+  | LoadUser
+  | LoadUserSuccess
+  | LoadUserFailed
+  | UpdateUser
+  | UpdateUserSuccess
+  | UpdateUserFailed
+  | Logout;

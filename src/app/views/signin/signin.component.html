@@ -6,10 +6,11 @@
       <h2>Login</h2>
 
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-        <div *ngIf="errorLogin$ | async" class="alert alert-danger">
+        <div *ngIf="errorLogin" class="alert alert-danger">
           <button type="button" class="close" data-dismiss="alert">
             &times;
           </button>
+
           There is an error in email or password
         </div>
 
@@ -46,9 +47,6 @@
           >
         </div>
       </form>
-      <div *ngIf="loading$ | async">
-        Checking user...
-      </div>
     </div>
   </div>
 </div>

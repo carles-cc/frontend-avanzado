@@ -1,11 +1,5 @@
-import { Component } from '@angular/core';
-import { ProfileService } from '../../../shared/services/profile.service';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { User } from 'src/app/shared/models/user.model';
-import {Store} from '@ngrx/store';
-import {UserState} from '../../../shared/states/user/user.state';
-import {selectedUser, studiesSelector} from '../../../shared/states/user/selectors/user.selectors';
-import {tap} from 'rxjs/operators';
-import {DeleteStudy, SaveUser} from "../../../shared/states/user/actions/user.actions";
 
 @Component({
   selector: 'app-profile-student',
@@ -13,23 +7,40 @@ import {DeleteStudy, SaveUser} from "../../../shared/states/user/actions/user.ac
   styleUrls: ['./profile-student.component.scss']
 })
 export class ProfileStudentComponent {
-  user: User;
-  constructor(
-    private profileService: ProfileService,
-    private store: Store<UserState>
-  ) {
-    // @ts-ignore
-    this.store.select(selectedUser)
-      .subscribe(result => this.user = result);
-  }
+  @Input() user: User;
+  // tslint:disable-next-line: no-output-on-prefix
+  @Output() onDeleteStudy: EventEmitter<User> = new EventEmitter();
+  // tslint:disable-next-line: no-output-on-prefix
+  @Output() onDeleteLanguage: EventEmitter<User> = new EventEmitter();
+
+  constructor() {}
 
   deleteStudy(studyID: number) {
-    this.user.studies = this.user.studies.filter(study => study.uid !== studyID);
-    this.store.dispatch(new SaveUser(this.user));
+    const studies = [...this.user.studies];
+    const index = studies.findIndex(study => study.uid === studyID);
+    if (index === -1) {
+      alert('Error: Study not found');
+      return;
+    }
+    studies.splice(index, 1);
+    const user = {
+      ...this.user,
+      studies
+    };
+    this.onDeleteStudy.emit(user);
   }
-
   deleteLanguage(languageID: any) {
-    this.user.languages = this.user.languages.filter(language => language.uid !== languageID);
-    this.store.dispatch(new SaveUser(this.user));
+    const languages = [...this.user.languages];
+    const index = languages.findIndex(language => language.uid === languageID);
+    if (index === -1) {
+      alert('Error: Language not found');
+      return;
+    }
+    languages.splice(index, 1);
+    const user = {
+      ...this.user,
+      languages
+    };
+    this.onDeleteLanguage.emit(user);
   }
 }
