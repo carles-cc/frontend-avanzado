@@ -21,7 +21,8 @@ import { dateValidator } from 'src/app/shared/directives/date-validator.directiv
 
 @Component({
   selector: 'app-vocational-form',
-  templateUrl: './vocational-form.component.html'
+  templateUrl: './vocational-form.component.html',
+  styleUrls: ['./vocational-form.component.scss']
 })
 export class VocationalFormComponent implements OnInit, OnChanges {
   @Output() onSave: EventEmitter<VocationalStudy> = new EventEmitter();

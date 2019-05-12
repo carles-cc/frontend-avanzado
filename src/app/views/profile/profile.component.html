@@ -1,6 +1,9 @@
-<h2>
-  Profile
-</h2>
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <span>Profile</span>
+  </mat-toolbar-row>
+</mat-toolbar>
+
 <!-- <div *ngIf="userRol === 'student'"> -->
 <app-profile-student
   [user]="user$ | async"

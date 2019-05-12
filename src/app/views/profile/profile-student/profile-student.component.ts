@@ -12,6 +12,8 @@ export class ProfileStudentComponent {
   @Output() onDeleteStudy: EventEmitter<User> = new EventEmitter();
   // tslint:disable-next-line: no-output-on-prefix
   @Output() onDeleteLanguage: EventEmitter<User> = new EventEmitter();
+  studiesColumns: string[] = ['level.name', 'grade.name', 'title.name', 'institution.name', 'date', 'certificate', 'bilingue', 'dual', 'edit', 'delete'];
+  langColumns: string[] = ['level.name', 'name.name', 'date', 'edit', 'delete'];
 
   constructor() {}
 
@@ -29,6 +31,7 @@ export class ProfileStudentComponent {
     };
     this.onDeleteStudy.emit(user);
   }
+
   deleteLanguage(languageID: any) {
     const languages = [...this.user.languages];
     const index = languages.findIndex(language => language.uid === languageID);

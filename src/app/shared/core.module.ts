@@ -27,6 +27,7 @@ import { NotificationsService } from './services/notifications.service';
 import { OffersService } from './services/offers.service';
 import { AuthService } from './services/auth.service';
 import { OffersEffects } from './states/offers';
+import {MaterialModule} from './material.module';
 
 /* export function HttpLoaderFactory(httpClient: HttpClient) {
   return new TranslateHttpLoader(httpClient);
@@ -61,6 +62,7 @@ export const CORE_SERVICES: Provider[] = [
 @NgModule({
   imports: [
     BrowserAnimationsModule,
+    MaterialModule,
     HttpClientModule,
     StoreModule.forRoot(reducers, { metaReducers }),
     StoreRouterConnectingModule.forRoot({ stateKey: 'router' }),

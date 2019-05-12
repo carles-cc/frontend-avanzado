@@ -1,44 +1,43 @@
 <form [formGroup]="rForm" (submit)="submit()">
   <div class="form-group">
-    <label for="institution">Centro educativo</label>
-    <input
-      type="text"
-      class="col-sm-10 form-control"
-      name="institution"
-      formControlName="institution"
-    />
+    <mat-form-field class="form-field">
+      <input
+              matInput
+              placeholder="Centro educativo"
+              name="institution"
+              formControlName="institution"
+      >
+    </mat-form-field>
   </div>
 
   <div class="form-group">
-    <label for="title">Título</label>
-    <input
-      type="text"
-      class="col-sm-10 form-control"
-      name="title"
-      formControlName="title"
-    />
+    <mat-form-field class="form-field">
+      <mat-label>Título</mat-label>
+      <input matInput
+             placeholder="Título"
+             name="title"
+             formControlName="title"
+      />
+    </mat-form-field>
   </div>
 
   <div class="form-group">
-    <label for="date">Fecha de obtención del título</label>
-    <input
-      type="text"
-      name="date"
-      class="col-sm-10 form-control"
-      formControlName="date"
-    />
-  </div>
-  <div class="form-group">
-    <label for="bilingue">Bilingue</label>
-    <input
-      type="checkbox"
-      name="bilingue"
-      class="form-check-input"
-      formControlName="bilingue"
-    />
+    <mat-form-field>
+      <mat-label>Fecha de obtención del título</mat-label>
+      <input matInput name="date" formControlName="date" [matDatepicker] = "picker" placeholder = "Escoge una fecha">
+      <mat-datepicker-toggle matSuffix [for] = "picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
   </div>
 
-  <button class="btn btn-primary" type="submit" [disabled]="rForm.invalid">
+  <div class="form-group">
+    <mat-checkbox
+            name="bilingue"
+            formControlName="bilingue"
+    >Bilingue</mat-checkbox>
+  </div>
+
+  <button mat-raised-button color="primary" type="submit" [disabled]="rForm.invalid">
     Guardar
   </button>
 </form>

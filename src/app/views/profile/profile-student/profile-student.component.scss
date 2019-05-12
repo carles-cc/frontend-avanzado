@@ -1,23 +1,19 @@
-
-
 #contenido{
 	padding-top:4em;
 }
-td{
-	padding-left:2em;
-}
-#foto-perfil, #datosPersonales{
-	width:25%;
 
+#foto-perfil{
+	max-width: 200px;
 }
 
-#otra_info{
-	padding-left:3em;
-}
-
-#otra_info  div{
-	padding-left:1em;
-}
 h2{
 	margin-top:2em;
+}
+
+table {
+	width: 100%;
+}
+
+.list-title {
+	font-weight: bold;
 }

@@ -1,87 +1,88 @@
 <form [formGroup]="rForm" (submit)="submit()">
   <div class="form-group">
-    <label for="institution">Centro educativo</label>
-    <select
-      [compareWith]="compareInstitution"
-      class="col-sm-10 form-control"
-      name="institution"
-      formControlName="institution"
-    >
-      <option [ngValue]="institution" *ngFor="let institution of institutions">
-        {{ institution.name }}</option
+    <mat-form-field class="form-field">
+      <mat-label>Centro educativo</mat-label>
+      <mat-select
+              [compareWith]="compareInstitution"
+              name="institution"
+              formControlName="institution"
       >
-    </select>
-  </div>
-  <div class="form-group">
-    <label for="category">Familia profesional</label>
-    <select
-      class="col-sm-10 form-control"
-      name="category"
-      formControlName="category"
-      [compareWith]="compareCategory"
-    >
-      <option [ngValue]="category" *ngFor="let category of categories">
-        {{ category.name }}</option
-      >
-    </select>
+        <mat-option [value]="institution" *ngFor="let institution of institutions">
+          {{ institution.name }}</mat-option
+        >
+      </mat-select>
+    </mat-form-field>
   </div>
 
   <div class="form-group">
-    <label for="grade">Nivel</label>
-    <select
-      class="col-sm-10 form-control"
-      name="grade"
-      formControlName="grade"
-      [compareWith]="compareGrade"
-    >
-      <option [ngValue]="grade" *ngFor="let grade of grades">
-        {{ grade.name }}</option
+    <mat-form-field class="form-field">
+      <mat-label>Familia profesional</mat-label>
+      <mat-select
+              name="category"
+              formControlName="category"
+              [compareWith]="compareCategory"
       >
-    </select>
+        <mat-option [value]="category" *ngFor="let category of categories">
+          {{ category.name }}</mat-option
+        >
+      </mat-select>
+    </mat-form-field>
   </div>
 
   <div class="form-group">
-    <label for="title">Título</label>
-    <select
-      class="col-sm-10 form-control"
-      name="title"
-      formControlName="title"
-      [compareWith]="compareTitle"
-    >
-      <option [ngValue]="title" *ngFor="let title of titles">
-        {{ title.name }}</option
+    <mat-form-field class="form-field">
+      <mat-label>Nivel</mat-label>
+      <mat-select
+              name="grade"
+              formControlName="grade"
+              [compareWith]="compareGrade"
       >
-    </select>
+        <mat-option [value]="grade" *ngFor="let grade of grades">
+          {{ grade.name }}</mat-option
+        >
+      </mat-select>
+    </mat-form-field>
   </div>
 
   <div class="form-group">
-    <label for="date">Fecha de obtención del título</label>
-    <input
-      type="text"
-      name="date"
-      class="col-sm-10 form-control"
-      formControlName="date"
-    />
+    <mat-form-field class="form-field">
+      <mat-label>Título</mat-label>
+      <mat-select
+              name="title"
+              formControlName="title"
+              [compareWith]="compareTitle"
+      >
+        <mat-option [value]="title" *ngFor="let title of titles">
+          {{ title.name }}</mat-option
+        >
+      </mat-select>
+    </mat-form-field>
   </div>
+
   <div class="form-group">
-    <label for="bilingue">Bilingue</label>
-    <input
-      type="checkbox"
-      name="bilingue"
-      class="form-check-input"
-      formControlName="bilingue"
-    />
+    <mat-form-field>
+      <mat-label>Fecha de obtención del título</mat-label>
+      <input matInput name="date" formControlName="date" [matDatepicker] = "picker" placeholder = "Escoge una fecha">
+      <mat-datepicker-toggle matSuffix [for] = "picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
   </div>
+
   <div class="form-group">
-    <label for="dual">Dual</label>
-    <input
-      type="checkbox"
-      name="dual"
-      class="form-check-input"
-      formControlName="dual"
-    />
+    <mat-checkbox
+            name="bilingue"
+            formControlName="bilingue"
+    >Bilingue</mat-checkbox>
   </div>
-  <button class="btn btn-primary" type="submit" [disabled]="rForm.invalid">
+
+  <div class="form-group">
+    <mat-checkbox
+            name="dual"
+            formControlName="dual"
+    >Dual</mat-checkbox>
+  </div>
+
+  <button mat-raised-button color="primary" type="submit" [disabled]="rForm.invalid">
     Guardar
   </button>
 </form>

@@ -1,29 +1,9 @@
-<!-- <div class="app-admin-wrap" [dir]="layoutConf.dir"> -->
-<!-- Header for top navigation layout -->
-<!-- ONLY REQUIRED FOR **TOP** NAVIGATION LAYOUT -->
-<!--   <app-header-top
-    *ngIf="layoutConf.navigationPos === 'top'"
-    [notificPanel]="notificationPanel"
-  >
-  </app-header-top> -->
-<div class="row">
-  <div class="col-3">
-    <ul>
-      <li><a routerLink="/">Logout</a></li>
-      <li><a routerLink="/admin/">Dashboard</a></li>
-
-      <li><a routerLink="/admin/profile">Profile</a></li>
-      <li><a routerLink="/admin/offers">Offers</a></li>
-      <li>
-        <a routerLink="/admin/config">Configuración</a>
-      </li>
-      <li>
-        <a [routerLink]="['/admin/offers/my-offers']">Mis ofertas</a>
-      </li>
-    </ul>
-  </div>
-  <div class="col-9">
-    <router-outlet></router-outlet>
-  </div>
+<div fxLayout="row" fxFlexAlign="space-between" fxLayoutGap="1em">
+  <button mat-stroked-button routerLink="/"> Logout </button>
+  <button mat-stroked-button routerLink="/admin/"> Dashboard </button>
+  <button mat-stroked-button routerLink="/admin/profile"> Profile </button>
+  <button mat-stroked-button routerLink="/admin/offers"> Offers </button>
+  <button mat-stroked-button routerLink="/admin/config"> Configuración </button>
+  <button mat-stroked-button routerLink="/admin/offers/my-offers"> Mis ofertas </button>
 </div>
-<!-- </div> -->
+<router-outlet></router-outlet>
