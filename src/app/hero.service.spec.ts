@@ -35,7 +35,10 @@ it('should return an error when the server returns a 404', () => {
   httpClientSpy.get.and.returnValue(asyncError(errorResponse));
 
   heroService.getHeroNo404(-1).subscribe(
-    result => expect(result.status).toBe(404)
+    result => {
+      // @ts-ignore
+      return expect(result.status).toBe(404);
+    }
   );
 });
 
