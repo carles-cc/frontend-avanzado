@@ -38,12 +38,12 @@ it('should return an error when the server returns a 404', () => {
   httpClientSpy.get.and.returnValue(asyncError(errorResponse));
 
   heroService.getHeroes().subscribe(
-    heroes => expect(heroes).toEqual([]),
+    response => expect(response.status).toEqual(404),
     error  => fail
   );
 });
 
-it('getNo404 should return undefined', () => {
+it('getNo404 should return empty', () => {
   const errorResponse = new HttpErrorResponse({
     error: 'test 404 error',
     status: 404, statusText: 'Not Found'
@@ -53,7 +53,7 @@ it('getNo404 should return undefined', () => {
   httpClientSpy.get.and.returnValue(asyncError(errorResponse));
 
   heroService.getHeroNo404(notExistingHero).subscribe(
-    response => expect(response).toEqual(undefined),
+    response => expect(response.status).toEqual(404),
     error  => fail
   );
 });
