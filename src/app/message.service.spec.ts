@@ -3,30 +3,36 @@ import { TestBed } from '@angular/core/testing';
 import { MessageService } from './message.service';
 
 describe('MessageService', () => {
-  beforeEach(() => TestBed.configureTestingModule({}));
+  let service: MessageService;
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      providers: [MessageService]
+    });
+    service = TestBed.get(MessageService);
+  });
 
   it('should be created', () => {
     const service: MessageService = TestBed.get(MessageService);
     expect(service).toBeTruthy();
+  }));
+
+  it('should add item and be the last', () => {
+    const items = ['test1', 'test2', 'test3'];
+
+    items.forEach(item => service.add(item));
+    const length = service.messages.length;
+    expect(length).toBe(3);
+    expect(service.messages[length - 1]).toBe(items[length - 1]);
   });
 
-  it('should return true', () => {
-    expect(true).toBe(true);
-  });
+  it('should delete all items', () => {
+    const items = ['test1', 'test2', 'test3'];
 
-  it('add should add message to the last position', () => {
-    const service: MessageService = TestBed.get(MessageService);
-    service.add('test1');
-    service.add('test2');
-    expect(service.messages.length).toBe(2);
-    expect(service.messages[service.messages.length - 1]).toBe('test2');
-  });
-
-  it('clear should clean messages', () => {
-    const service: MessageService = TestBed.get(MessageService);
     service.clear();
     expect(service.messages.length).toBe(0);
-    service.add('test1');
+
+    items.forEach(item => service.add(item));
     service.clear();
     expect(service.messages.length).toBe(0);
   });
