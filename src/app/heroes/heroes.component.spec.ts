@@ -24,4 +24,20 @@ describe('HeroesComponent', () => {
   it('should be created', () => {
     expect(component).toBeTruthy();
   });
+
+  it('heading should be "My Heroes"', () => {
+    const htmlElement: HTMLElement = fixture.nativeElement;
+    const h2 = htmlElement.querySelector('h2');
+    expect(h2.innerText).toEqual('My Heroes');
+  });
+
+  it('should trigger add', async() => {
+    spyOn(component, 'add');
+    const button = fixture.nativeElement.querySelector('button');
+    button.click();
+
+    fixture.whenStable().then(() => {
+      expect(component.add).toHaveBeenCalled();
+    });
+  });
 });
