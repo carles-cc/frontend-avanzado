@@ -1,4 +1,4 @@
-import { Routes, } from '@angular/router';
+import {PreloadAllModules, Routes,} from '@angular/router';
 import { AdminLayoutComponent } from './shared/components/admin-layout/admin-layout.component';
 /* import { AdminLayoutComponent } from './shared/components/layouts/admin-layout/admin-layout.component';
 import { AuthLayoutComponent } from './shared/components/layouts/auth-layout/auth-layout.component';
@@ -6,6 +6,7 @@ import { AuthGuard } from './shared/services/auth/auth.guard'; */
 
 
 import { RouterModule } from '@angular/router';
+import {NgModule} from '@angular/core';
 
 export const rootRouterConfig: Routes = [
   {
@@ -61,3 +62,16 @@ export const rootRouterConfig: Routes = [
     redirectTo: 'sessions/404'
   }
 ];
+
+@NgModule({
+  exports: [
+    RouterModule
+  ],
+  imports: [
+    RouterModule.forRoot(rootRouterConfig, {
+      preloadingStrategy: PreloadAllModules // <-This is our preloading
+    })
+  ]
+})
+
+export class AppRoutingModule {}
